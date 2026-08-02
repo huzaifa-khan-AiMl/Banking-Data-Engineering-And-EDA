@@ -1,0 +1,28 @@
+# Python cache
+__pycache__/
+
+# Virtual Environment
+churn_project_env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment variables
+.env
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Raw dataset
+data/archive.zip
+data/banking_dataset_kaggle/
+
+# Windows
+Thumbs.db
+
+# VS Code
+.vscode/
+
+
