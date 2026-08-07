@@ -127,7 +127,7 @@ WHERE c.customer_id IS NULL;
 
 -- Loans -> Customers
 SELECT COUNT(*)
-Account to Customer = customer_id `ValidFROM loans l
+FROM loans l
 LEFT JOIN customers c
 ON l.customer_id = c.customer_id
 WHERE c.customer_id IS NULL;
