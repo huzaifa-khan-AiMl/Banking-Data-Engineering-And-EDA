@@ -1,176 +1,212 @@
-# Data Exploration 
-The purpose of this exploratory analysis is to understand each table individually, identify meaningful patterns, and determine which attributes are useful for later multi-table
-analysis.
+# Data Exploration
 
-## Accounts Table:
+The purpose of this exploratory analysis is to understand each table 
+individually, identify meaningful patterns, and determine which 
+attributes are useful for later multi-table analysis.
 
-__Total Customers__
-50000
+## Customers Table
 
-__Credit Score__
-Min = 300
-Max = 850
-Avg = 547
+**Total Customers:** 50,000
 
-`Insights`: Customer credit scores span the complete valid range (300–850), with an average score of approximately 547, indicating a dataset centered around moderate credit
-worthiness.
+**Credit Score**
+| Min | Max | Avg |
+|-----|-----|-----|
+| 300 | 850 | 547 |
 
-__New Customers by Year__
+`Insights`: Customer credit scores span the complete valid range 
+(300–850), with an average of approximately 547, indicating a dataset 
+centered around moderate creditworthiness.
+
+**New Customers by Year**
 | Year | New Customers |
 |------|---------------|
-| 2019 | 7088          |
-| 2020 | 7186          |
-| 2021 | 6953          |
-| 2022 | 7129          |
-| 2023 | 7037          |
-| 2024 | 7284          |
-| 2025 | 7323          |
+| 2019 | 7,088 |
+| 2020 | 7,186 |
+| 2021 | 6,953 |
+| 2022 | 7,129 |
+| 2023 | 7,037 |
+| 2024 | 7,284 |
+| 2025 | 7,323 |
 
-`Insights`: Almost all the years had fair share of new customers with slight differences and maximum being in 2025
+`Insights`: New customers are fairly evenly distributed across years, 
+with a slight peak in 2025.
 
-### Decisions:
-__Cities__
-Approximately 25,000 distinct city names exist among 50,000 customers. Since nearly every second customer belongs to a different city and the locations are randomly generated 
-rather than real-world values, city-based analysis was excluded from further exploration because it would not produce meaningful business insights.
+### Decisions
+**Cities:** Approximately 25,000 distinct city names exist among 50,000 
+customers. Since nearly every second customer belongs to a different 
+city and the locations appear randomly generated rather than 
+real-world values, city-based analysis was excluded — it would not 
+produce meaningful business insights.
 
-### Summary:
-There are 50000 number of customers almost all new customers are equally distributed over the years credit score ranges from 300 to 850 avg being 547 most intriguing find was
-that the there were approximately 25,000 distinct cities with random generated name and nearly every single customer belonged to a different city which implies that this column
-was randomly generated
+### Summary
+50,000 customers, fairly evenly distributed across years. Credit scores 
+range from 300–850 with an average of 547. The most notable finding was 
+that city names are almost entirely unique per customer (~25,000 
+distinct values across 50,000 rows), strongly suggesting this column 
+was randomly generated rather than reflecting real customer locations.
 
 ---
 
-## Accounts Table:
+## Accounts Table
 
-__Number of Accounts__
-75000
+**Total Accounts:** 75,000
 
-__Number of Accounts by Account Type__
-| Account Type | Count  |
-|--------------|--------|
-| Checking     | 25090  |
-| Business     | 24948  |
-| Savings      | 24962  |
+**Accounts by Type**
+| Account Type | Count |
+|---|---|
+| Checking | 25,090 |
+| Business | 24,948 |
+| Savings | 24,962 |
 
-`Insights`: The number of account distributions among account types are almost equals to each other.
+`Insights`: Account types are almost evenly distributed.
 
-__Average Account Balance__
-100181.72
+**Average Account Balance:** 100,181.72
 
-__Average Balance by Year__
-| Year | Average Balance      |
-|------|----------------------|
-| 2019 |  99405.11            |
-| 2020 |  99448.37            |
-| 2021 | 100576.08            |
-| 2022 | 101082.11            |
-| 2023 | 100411.60            |
-| 2024 |  99460.66            |
-| 2025 | 100873.25            |
+**Average Balance by Opening Year**
+| Year | Average Balance |
+|------|-----------------|
+| 2019 | 99,405.11 |
+| 2020 | 99,448.37 |
+| 2021 | 100,576.08 |
+| 2022 | 101,082.11 |
+| 2023 | 100,411.60 |
+| 2024 | 99,460.66 |
+| 2025 | 100,873.25 |
 
-`Insights`: Average Balance by year is also evenly distributed with some differences.
+`Insights`: Average balance is stable across years, with only minor 
+variation.
 
-__Number of Customers by Account Ownership__
+**Customers by Account Ownership**
 | Total Accounts | Customers |
-|----------------|-----------|
-| 8              | 5         |
-| 7              | 26        |
-| 6              | 172       |
-| 5              | 692       |
-| 4              | 2354      |
-| 3              | 6309      |
-| 2              | 12663     |
-| 1              | 16617     |
+|---|---|
+| 1 | 16,617 |
+| 2 | 12,663 |
+| 3 | 6,309 |
+| 4 | 2,354 |
+| 5 | 692 |
+| 6 | 172 |
+| 7 | 26 |
+| 8 | 5 |
 
-- Customers having more than one account `22221`
+- Customers with more than one account: **22,221**
 
-`Insights`: Most customers own one or two accounts, while only a very small number own more than five accounts, indicating that multiple-account ownership is relatively 
-uncommon in this synthetic banking dataset.
+`Insights`: Most customers own one or two accounts; ownership of more 
+than five accounts is rare.
 
-__ Avg, Max and Min by Account Type__
-| Type     | Max Balance | Min Balance | Avg Balance          |
-|----------|-------------|-------------|----------------------|
-| Business | 199969.50   | 13.20       | 100154.938045133878  |
-| Checking | 199994.58   | 28.55       | 100147.970630928657  |
-| Savings  | 199989.26   | 13.21       | 100242.415014421921  |
+**Note — customers with zero accounts:** the ownership table above sums 
+to 38,838 customers, but there are 50,000 customers total — meaning 
+roughly **11,162 customers (~22%) have no account at all**. This is 
+worth investigating further once multi-table joins are possible: are 
+these loan-only customers, or a genuine data gap?
 
-`Insights`: The average max and min by card types are also also evenly distributed with little to no change
+**Avg, Max, Min Balance by Account Type**
+| Type | Max Balance | Min Balance | Avg Balance |
+|---|---|---|---|
+| Business | 199,969.50 | 13.20 | 100,154.94 |
+| Checking | 199,994.58 | 28.55 | 100,147.97 |
+| Savings | 199,989.26 | 13.21 | 100,242.42 |
+
+`Insights`: Balance statistics are nearly identical across account 
+types, with negligible variation.
 
 ### Decisions
-- Maximum and minimum balances were not included because they provide limited analytical value compared with average balance and account ownership distribution.
-- Maximum and Minimum by account type were also skipped though mainly because the differece of balance among themeselves was negligible.
-- Average balance by account type was also skipped due to the same lack of difference reason as it was in max and min.
+- Max/min balances alone were not analyzed further — average balance 
+  and account ownership distribution were more analytically useful.
+- Max/min and average balance by account type were both de-prioritized, 
+  since the difference between types was negligible in each case.
 
-### Summary:
-There are 75000 accounts of three types Checking, Business and Saving all these types are almost equal in numbers in those 70000 accounts about 22221 customers have more than
-1 account the average balance of these accounts are distributed evenly over the years overall and also by account type
+### Summary
+75,000 accounts across three roughly equal types (Checking, Business, 
+Savings). About 22,221 customers hold more than one account, while an 
+unexpected ~22% of customers hold none at all — a gap worth revisiting 
+once joins with the loans table are possible. Average balance is stable 
+across years and account types alike.
 
-## Loans Table:
-__ Loan amount statistics __
-| Max Loan  | Min Loan | Avg Loan            | Median Loan |
-|-----------|----------|---------------------|-------------|
-| 299975.47 | 1010.16  | 150089.016603333333 | 150571      |
-`Insights`: The statistics suggest that the average loan is more closer to maximum loan than to the minimum
+---
 
-__ Interest Rate Statistics __
-| Max Interest Rate | Min Interest Rate | Avg Interest Rate     |
-|-------------------|-------------------|-----------------------|
-| 15.00             | 2.00              | 8.5074183333333333    |
+## Loans Table
 
-`Insights`: These statistics also shows perfect avg between max and min
+**Loan Amount Statistics**
+| Max Loan | Min Loan | Avg Loan | Median Loan |
+|---|---|---|---|
+| 299,975.47 | 1,010.16 | 150,089.02 | 150,571 |
 
-__ Average Interest Rate by Loan Amount Range __
-| Loan Range | Avg Interest Rate     |
-|------------|-----------------------|
-| 100K-150K  | 8.5198133279807306    |
-| 150K-200K  | 8.4799862204724409    |
-| 200K+      | 8.4780818619582665    |
-| 50K-100K   | 8.6258742949234488    |
-| Under 50K  | 8.4638733519776268    |
-`Insights`: This table shows that there is no relation of increasing loan amount with interest rate
+`Insights`: The average and median loan amounts sit almost exactly at 
+the midpoint between the minimum and maximum, indicating a roughly 
+symmetric, evenly spread distribution of loan amounts rather than one 
+skewed toward either extreme.
 
-__ Average loan amount and interest rate by year __
-| Year | Avg Loan Amount     | Avg Interest Rate     |
-|------|---------------------|-----------------------|
-| 2019 | 150057.072183018438 | 8.5076872296835875    |
-| 2020 | 148762.792548134062 | 8.5576230092702638    |
-| 2021 | 150786.471089131953 | 8.5059878985338608    |
-| 2022 | 151337.437285813792 | 8.5269189691200371    |
-| 2023 | 148114.918349560674 | 8.4528093089527428    |
-| 2024 | 150301.060811064229 | 8.4823464603844351    |
-| 2025 | 151189.779231303542 | 8.5182264413058578    |
-`Insights`: It shows that the average rate of both interest and loan amount is independant of the years
+**Interest Rate Statistics**
+| Max Rate | Min Rate | Avg Rate |
+|---|---|---|
+| 15.00 | 2.00 | 8.51 |
 
-__ Number of unique customers who have taken loans and Average number of loans per borrowing customer __
-Avg Loans per Customers = 1.3
-Number of Unique Customers who have taken Loans = 22586
+`Insights`: The average interest rate sits close to the midpoint of 
+the valid range.
 
-__ Number of loans issued by year __
+**Average Interest Rate by Loan Amount Range**
+| Loan Range | Avg Interest Rate |
+|---|---|
+| Under 50K | 8.46 |
+| 50K–100K | 8.63 |
+| 100K–150K | 8.52 |
+| 150K–200K | 8.48 |
+| 200K+ | 8.48 |
+
+`Insights`: No meaningful relationship between loan amount and interest 
+rate — rates stay flat across all ranges.
+
+**Average Loan Amount and Interest Rate by Year**
+| Year | Avg Loan Amount | Avg Interest Rate |
+|------|------------------|--------------------|
+| 2019 | 150,057.07 | 8.51 |
+| 2020 | 148,762.79 | 8.56 |
+| 2021 | 150,786.47 | 8.51 |
+| 2022 | 151,337.44 | 8.53 |
+| 2023 | 148,114.92 | 8.45 |
+| 2024 | 150,301.06 | 8.48 |
+| 2025 | 151,189.78 | 8.52 |
+
+`Insights`: Both loan amount and interest rate are effectively 
+independent of year — no upward or downward trend over time.
+
+**Loan Ownership**
+- Unique customers with loans: 22,586
+- Average loans per borrowing customer: 1.32
+
+**Loans Issued by Year**
 | Year | Loan Count |
 |------|------------|
-| 2019 | 4393       |
-| 2020 | 4207       |
-| 2021 | 4297       |
-| 2022 | 4307       |
-| 2023 | 4211       |
-| 2024 | 4266       |
-| 2025 | 4319       |
-`Insights`: The number of loans issued by Year are same with litlle changes
+| 2019 | 4,393 |
+| 2020 | 4,207 |
+| 2021 | 4,297 |
+| 2022 | 4,307 |
+| 2023 | 4,211 |
+| 2024 | 4,266 |
+| 2025 | 4,319 |
 
-__ Overall loan distribution __
-| Loan Range        | Loan Count |
-|-------------------|------------|
-| 200K-220K         | 2029       |
-| 220K-240K         | 1963       |
-| 240K-260K         | 2057       |
-| 260K-280K         | 1915       |
-| 280K+             | 2004       |
-| Under/Equal 200K  | 20032      |
-`Insights`: This is the interesting finding as it shows that almost 66.77% number of loans are below 200k and about 33.23% number of loans are above 200k
+`Insights`: Loan issuance is consistent year over year, with no 
+significant trend.
 
-### Decision:
-We also did loan distribution above 200k ranges though the loan counts were evenly distributed and it had nothing important to be found
+**Overall Loan Distribution**
+| Loan Range | Loan Count |
+|---|---|
+| Under/Equal 200K | 20,032 |
+| 200K–220K | 2,029 |
+| 220K–240K | 1,963 |
+| 240K–260K | 2,057 |
+| 260K–280K | 1,915 |
+| 280K+ | 2,004 |
 
-### Summary:
-This table has 30000 loans which were taken by 45.17% of the Customers each customer had about 1.32 loans per average, about 66.77% number of loans are below 200k and about 
-33.23% number of loans are above 200k number of loans, interest average and loans amount average are eqaul with some changes over the years
+`Insights`: Roughly 66.8% of loans fall at or below 200K, while the 
+remaining 33.2% are spread fairly evenly across higher brackets.
+
+### Decisions
+Loan distribution above 200K was broken into further ranges, but the 
+counts were evenly spread with nothing distinctive to report.
+
+### Summary
+30,000 loans, held by 45.17% of all customers, averaging 1.32 loans per 
+borrowing customer. About 66.8% of loans are under 200K. Loan amount 
+and interest rate are both essentially flat across time and show no 
+relationship to each other.
